@@ -61,7 +61,7 @@ class PigGameInstance(object):
 
     def player_turn(self):
         # Get input and validate
-        player_response = raw_input('Will you Roll or Hold? ').strip()
+        player_response = raw_input('Will you Roll or Hold? \n').strip()
         if not re.match(r'(roll|hold|r|h)', player_response, flags=re.IGNORECASE):
             raise ValueError('Please enter one of the two valid responses.')
         return player_response
@@ -87,19 +87,24 @@ def main():
             bad_roll = False
 
             while bad_roll == False:
+                print 'It\'s {}\'s turn: '.format(key)
                 response = pig_game.player_turn()
                 if re.match(r'(roll|r)', response, flags=re.IGNORECASE):
                     current_roll = game_dye.roll()
                     if current_roll == 1:
+                        print 'Ooh.. bad luck! \n'
                         bad_roll = True
-                        continue
+                        break
                     else:
                         pig_game.pending_points += current_roll
-                        pig_game.player_data[curr_player] += pig_game.pending_points
                         pig_game.display_scores()
+                        print 'Pending points: {}'.format(
+                            pig_game.pending_points)
                         pig_game.check_if_winner()
                 else:
-                    continue
+                    pig_game.player_data[curr_player] += pig_game.pending_points
+                    pig_game.pending_points = 0
+                    break
 
 
 if __name__ == '__main__':
