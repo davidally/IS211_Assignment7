@@ -32,6 +32,7 @@ class GameInstance(object):
     def __init__(self):
         self.player_data = {}
         self.pending_points = 0
+        self.current_player_turn = None
 
     def add_player(self, user):
         self.player_data[user.name] = user.player_score
