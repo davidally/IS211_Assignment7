@@ -88,7 +88,7 @@ def main():
             bad_roll = False
 
             while bad_roll == False:
-                print 'It\'s {}\'s turn: '.format(key)
+                print '\nIt\'s {}\'s turn: '.format(key)
                 response = pig_game.player_turn()
                 print '\n'
                 if re.match(r'(roll|r)', response, flags=re.IGNORECASE):
@@ -96,6 +96,7 @@ def main():
                     if current_roll == 1:
                         print '{} rolled a 1: Ooh.. bad luck! \n'.format(key)
                         bad_roll = True
+                        pig_game.pending_points = 0
                         break
                     else:
                         print '\n{} rolled a: {}'.format(key, current_roll)
