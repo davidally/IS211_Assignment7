@@ -58,11 +58,15 @@ class PigGameInstance(object):
 
     def player_turn(self):
         # Get input and validate
-        player_response = raw_input(
-            'Will you Roll or Hold? (r,h and roll,hold are valid answers)\n').strip()
-        if not re.match(r'(roll|hold|r|h)', player_response, flags=re.IGNORECASE):
-            raise ValueError('Please enter a valid response.')
-        return player_response
+        while True:
+            player_response = raw_input(
+                'Will you Roll or Hold? (r,h and roll,hold are valid answers)\n').strip()
+            if not re.match(r'(roll|hold|r|h)', player_response, flags=re.IGNORECASE):
+              print 'Please enter a valid move.'
+              continue
+            else:
+              return player_response
+              break
 
 
 def main():
