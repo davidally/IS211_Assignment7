@@ -79,6 +79,14 @@ def main():
 
     # Check if there is at least two players
 
+    print '\n***~\~\~\~\~\~\~####### WELCOME TO PIG! #######~/~/~/~/~/~/~***\n'
+    print '''
+    Pig is a game of chance, but also of great skill...
+    Prove your bravery by testing your luck, shooting your shots.
+    Or cower in fear and hold back on your meager earnings... 
+    Are you ready, great warriors of the keyboard?
+    '''.center(6)
+
     while pig_game:
 
         for key, val in pig_game.player_data.items():
