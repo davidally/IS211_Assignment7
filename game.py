@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-\
 
 import random
+import argparse
 
 
 class User(object):
@@ -46,14 +47,22 @@ class GameInstance(object):
     def award_points(self, player_name):
         self.player_data[player_name] += self.pending_points
 
+    def reset_state(self):
+        self.player_data.clear()
+        self.pending_points = 0
 
-start = GameInstance()
 
-start.add_player(User('Ronald McJenkins'))
-start.award_points('Ronald McJenkins')
-start.add_player(User('Tony Toucan'))
-start.add_player(User('Gerard McFinklestein'))
-start.add_player(User('Anthony Applesauce'))
-start.add_player(User('Jeremy Jarhead'))
+def main():
+    parser = argparse.ArgumentParser()
 
-start.display_scores()
+    start = GameInstance()
+
+    start.add_player(User('Ronald McJenkins'))
+    start.award_points('Ronald McJenkins')
+    start.add_player(User('Tony Toucan'))
+
+    start.display_scores()
+
+
+if __name__ == '__main__':
+    main()
