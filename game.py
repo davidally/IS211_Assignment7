@@ -42,7 +42,7 @@ class PigGameInstance(object):
                 print '{} has won the game! \nWould you like to play again?\n'.format(
                     key)
                 self.reset_state()
-                return
+                quit()
 
     def display_scores(self):
         # Format the dictionary entries and join the list to the string
