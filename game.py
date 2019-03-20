@@ -49,9 +49,6 @@ class PigGameInstance(object):
         print '''\n################# SCOREBOARD #################\n\n{}\n\n##############################################\n
         '''.format(' \n'.join('{} : {}'.format(key, val) for (key, val) in self.player_data.items()))
 
-    def award_points(self, player_name):
-        self.player_data[player_name] += self.pending_points
-
     def reset_state(self):
         self.player_data.clear()
         self.pending_points = 0
@@ -79,6 +76,8 @@ def main():
         raw_input('Set amount of players for this game: ').strip())
     for _ in range(player_count):
         pig_game.add_player(User())
+
+    # Check if there is at least two players
 
     while pig_game:
 
