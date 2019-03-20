@@ -37,7 +37,7 @@ class PigGameInstance(object):
         self.player_data[user.name] = user.player_score
 
     def check_if_winner(self):
-        for key, val in self.player_data:
+        for key, val in self.player_data.items():
             if val >= 100:
                 print '{} has won the game! \n Would you like to play again?'.format(
                     key)
