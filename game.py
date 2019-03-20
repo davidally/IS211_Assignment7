@@ -39,7 +39,7 @@ class PigGameInstance(object):
     def check_if_winner(self):
         for key, val in self.player_data.items():
             if val >= 100:
-                print '{} has won the game! \n Would you like to play again?'.format(
+                print '{} has won the game! \nWould you like to play again?\n'.format(
                     key)
                 self.reset_state()
                 return
@@ -61,9 +61,10 @@ class PigGameInstance(object):
 
     def player_turn(self):
         # Get input and validate
-        player_response = raw_input('Will you Roll or Hold? \n').strip()
+        player_response = raw_input(
+            'Will you Roll or Hold? (r,h and roll,hold are valid answers)\n').strip()
         if not re.match(r'(roll|hold|r|h)', player_response, flags=re.IGNORECASE):
-            raise ValueError('Please enter one of the two valid responses.')
+            raise ValueError('Please enter a valid response.')
         return player_response
 
 
@@ -89,16 +90,18 @@ def main():
             while bad_roll == False:
                 print 'It\'s {}\'s turn: '.format(key)
                 response = pig_game.player_turn()
+                print '\n'
                 if re.match(r'(roll|r)', response, flags=re.IGNORECASE):
                     current_roll = game_dye.roll()
                     if current_roll == 1:
-                        print 'Ooh.. bad luck! \n'
+                        print '{} rolled a 1: Ooh.. bad luck! \n'.format(key)
                         bad_roll = True
                         break
                     else:
+                        print '\n{} rolled a: {}'.format(key, current_roll)
                         pig_game.pending_points += current_roll
                         pig_game.display_scores()
-                        print 'Pending points: {}'.format(
+                        print 'Pending points: {} \n'.format(
                             pig_game.pending_points)
                         pig_game.check_if_winner()
                 else:
