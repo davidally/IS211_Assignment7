@@ -27,7 +27,7 @@ class Dye(object):
         return random.choice(self.sides)
 
 
-class GameInstance(object):
+class PigGameInstance(object):
 
     def __init__(self):
         self.player_data = {}
@@ -54,15 +54,14 @@ class GameInstance(object):
 
 
 def main():
-    parser = argparse.ArgumentParser()
 
-    start = GameInstance()
+    # Initialize game
+    pig_game = PigGameInstance()
 
-    start.add_player(User('Ronald McJenkins'))
-    start.award_points('Ronald McJenkins')
-    start.add_player(User('Tony Toucan'))
+    pig_game.add_player(User('Ronald McJenkins'))
+    pig_game.add_player(User('Tony Toucan'))
 
-    start.display_scores()
+    pig_game.display_scores()
 
 
 if __name__ == '__main__':
