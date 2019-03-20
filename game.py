@@ -9,7 +9,7 @@ import re
 class User(object):
 
     def __init__(self):
-        self.name = raw_input('Enter a player name: ')
+        self.name = raw_input('Enter a player name: ').strip()
         self.player_score = 0
 
     def add_points(self, points):
@@ -37,10 +37,10 @@ class PigGameInstance(object):
         self.player_data[user.name] = user.player_score
 
     def check_if_winner(self):
-        for player in self.player_data:
-            if player[1] >= 100:
+        for key, val in self.player_data:
+            if val >= 100:
                 print '{} has won the game! \n Would you like to play again?'.format(
-                    player[0])
+                    key)
                 self.reset_state()
                 return
 
@@ -61,7 +61,7 @@ class PigGameInstance(object):
 
     def player_turn(self):
         # Get input and validate
-        player_response = raw_input('Will you Roll or Hold?')
+        player_response = raw_input('Will you Roll or Hold? ').strip()
         if not re.match(r'(roll|hold|r|h)', player_response, flags=re.IGNORECASE):
             raise ValueError('Please enter one of the two valid responses.')
         return player_response
@@ -72,35 +72,34 @@ def main():
     # Initialize game
     pig_game = PigGameInstance()
     game_dye = Dye(6)
-    player_rotate = iter(pig_game.player_data)
 
     # Set up the match
-    player_count = raw_input('Set amount of players for this game: ')
-    for _ in range(int(player_count)):
+    player_count = int(
+        raw_input('Set amount of players for this game: ').strip())
+    for _ in range(player_count):
         pig_game.add_player(User())
 
     while pig_game:
-        pig_game.current_player_turn = next(player_rotate)
-        curr_player = pig_game.current_player_turn
-        bad_roll = False
 
-        while bad_roll == False:
-            response = pig_game.player_turn()
-            if response == 'r' or response == 'roll':
-                current_roll = game_dye.roll()
-                if current_roll == 1:
-                    bad_roll = True
-                    continue
+        for key, val in pig_game.player_data.items():
+            pig_game.current_player_turn = key
+            curr_player = pig_game.get_current_player()
+            bad_roll = False
+
+            while bad_roll == False:
+                response = pig_game.player_turn()
+                if re.match(r'(roll|r)', response, flags=re.IGNORECASE):
+                    current_roll = game_dye.roll()
+                    if current_roll == 1:
+                        bad_roll = True
+                        continue
+                    else:
+                        pig_game.pending_points += current_roll
+                        pig_game.player_data[curr_player] += pig_game.pending_points
+                        pig_game.display_scores()
+                        pig_game.check_if_winner()
                 else:
-                    pig_game.pending_points += current_roll
-                    pig_game.player_data[curr_player] += pig_game.pending_points
-                    print curr_player
-                    pig_game.display_scores()
-                    pig_game.check_if_winner()
-            else:
-                continue
-
-    pig_game.display_scores()
+                    continue
 
 
 if __name__ == '__main__':
