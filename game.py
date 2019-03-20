@@ -81,9 +81,22 @@ def main():
 
     print '\n***~\~\~\~\~\~\~####### WELCOME TO PIG! #######~/~/~/~/~/~/~***\n'
     print '''
-    Pig is a game of chance, but also of great skill...
-    Prove your bravery by testing your luck, shooting your shots.
-    Or cower in fear and hold back on your meager earnings... 
+            (\____/)
+            / @__@ |
+           (  (oo)  )
+            `-.~~.-'
+             /    |
+           @/      \_
+          (/ /    \ \)
+           WW`----'WW 
+
+           By David Ally\n'''.center(30)
+    print '''
+    Pig is a game of chance, but also of great skill!
+    Prove your bravery by testing your luck, fortune may yet smile upon you.
+    Or cower in fear and hold back on your meager earnings like the pathetic 
+    weakling you are...
+
     Are you ready, great warriors of the keyboard?
     '''.center(6)
 
@@ -94,6 +107,7 @@ def main():
             curr_player = pig_game.get_current_player()
             bad_roll = False
 
+            # If the roll is bad then the next player will have their turn
             while bad_roll == False:
                 print '\nIt\'s {}\'s turn: '.format(key)
                 response = pig_game.player_turn()
